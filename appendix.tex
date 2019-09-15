@@ -1,0 +1,102 @@
+\documentclass{llncs}
+%\usepackage{hyperref}       % hyperlinks
+\usepackage{xr}
+\externaldocument{iconip_2019}
+\input{extra_math.tex}
+\title{Supplementary Material}
+\begin{document}
+\appendix
+\section{Proposition Proofs}
+\begin{proof}[Proof of Proposition \ref{prop:main}]
+		In this proof, we make some notation convention.
+		$w(C) = \displaystyle\sum_{(i,j) \in E(C)} w_{ij},$
+		$w(A, C) = \displaystyle\sum_{\substack{i \in A, j \in C \\ (i,j) \in E(V')}} (w_{ij}+w_{ji})$ and
+		$\P_C = \{\{i \}| i \in C \}$. Suppose $\gamma_N = I(Z_B)$, from equation \eqref{eq:gammaN}, we can get $\gamma_N =\frac{f[\P_B]} {\abs{B} -1}$.
+		Since $V' = B \cup \{i'\}$
+		$f[\P_{V'}] = f[\P_B] + \sum_{i \in B}w_{ii'}$.
+		
+		If $ \sum_{i \in B} w_{ij} > \gamma_N$ we can get
+		$$
+		\gamma'_N \geq I_{\P_{V'}}(Z_{V'}) = \frac{(\abs{B}-1)\gamma_N + \sum_{i \in B}w_{ii'}}{\abs{B}} > \gamma_N
+		$$
+		
+		On the other hand, suppose $\gamma'_N = I(Z_K) > \gamma_N$. Then $K$ must contain $i'$. If $K=V'$ then the conclusion holds. Otherwise, Suppose $K = \{i'\} \cup B', B=B'\cup J, J\neq \emptyset$. We can write 
+		\begin{equation}\label{eq:gammaNF}
+		\gamma_N = \frac{w(J,B') + w(J) + w(B')}{ \abs{B'} + \abs{J} - 1 }
+		\end{equation}
+		Since $I(Z_K) = I_{\P_K}(Z_K)$ is maximal, we have $I_{\P_K}(Z_K) > I_{\P_{V'}}(Z_{V'})$ and $I_{\P_K}(Z_K) \geq I_{\P_{B'}}(Z_{B'})$.
+		\begin{align*}
+			\frac{w(\{i'\}, B') + w(B')}{\abs{B'}} >& \frac{w(B') + w(J, B') + w(J) + w(\{i'\}, B') + w(\{i'\}, J)}{\abs{B'} + \abs{J}}  \\
+			\frac{w(\{i'\}, B') + w(B')}{\abs{B'}} \geq & \frac{w(B')}{\abs{B'} - 1}
+		\end{align*}
+		we can get 
+		\begin{align}
+			\abs{J} (w(\{i'\}, B') + w(B')) > & \abs{B'} (w(J, B') + w(J) + w(\{i'\}, J)) \label{eq:target}
+			\\
+			(\abs{B'} - 1)  w(\{i'\}, B') \geq & w(B') \label{eq:convert}
+		\end{align}
+		Take equation \eqref{eq:convert} in \eqref{eq:target}, we can get
+		\begin{equation}\label{eq:summation}
+		\abs{J} w(\{i'\}, B') > w(J, B') + w(J) + w(\{i'\}, J)
+		\end{equation}	
+		Combined with \eqref{eq:gammaNF}, adding equation \eqref{eq:convert} and \eqref{eq:summation} we can get
+		$w(\{i'\}, B') > \gamma_N$. Then $\sum_{j \in B}w_{ii'} > \gamma_N $ follows.
+\end{proof}	
+\section{Algorithm Analysis}\label{sec:AA}
+In this section, we give detailed analysis of time complexity of Algorithm \ref{alg:psp_i_simplified}.
+It is noticed that each invocation of \texttt{Split} makes the graph $\widetilde{G}$ contract at least two nodes. Therefore, at most $\abs{V}-2$ times \texttt{Split} is called. Suppose the time complexity of \texttt{DT} is bounded by $Cn^4$. Then in worst scenario, the complexity bound for \texttt{Split} is $C(3^4+4^4 + \dots + n^4) \sim \frac{1}{5}Cn^5$, which is $5$ times faster than the original PSP algorithm $Cn^5$.
+
+Generally, this worst case is not reached. The recursive relationship for $T(n)$ is
+\begin{equation}\label{eq:Tn}
+T(n) = \max \{ C n^4 + \sum_{i=1}^k T(n_i) + T(k)\delta_{k<n} | \sum_{i=1}^k n_i = n, n_i \in \mathbb{Z}_{+} \}
+\end{equation}	
+In \eqref{eq:Tn}, $Cn^4$ is the time complexity of \texttt{DT} when $\abs{E} = O(n^2)$. $\delta_{k<n} = 1$ when $k<n$ otherwise $\delta_{k<n}=0$. We have the following proposition:
+\begin{proposition}\label{prop:alg_complexity}
+	 If $n_i \leq \frac{n}{2}, \textrm{ for } i=1,\dots,k$ and $ k \leq \frac{n}{2}$  hold in equation \eqref{eq:Tn}, then $T(n) = O(n^4)$.
+\end{proposition}
+\begin{proof}
+Let $\mu_i = \frac{n_i}{n} \leq \frac{1}{2}$. We proceed by induction to show $T(n) = O(n^4)$. More specifically, $T(n) \leq q C n^4$ where $ q = \frac{16}{5}$. $T(3)$ is a constant and $T(m) \leq q C m^4$ holds for $m=3$. Suppose
+	$T(m) \leq qC m^4$ holds for all $m \leq n-1$. Then for $T(n)$
+	We first show that 
+	\begin{equation}\label{eq:outerI}
+	\sum_{i=1}^k T(n_i) \leq 10 T(\frac{n}{2})
+	\end{equation}
+	Since $\sum_{i=1}^k T(n_i) \leq qC n^4\sum_{i=1}^k u_i^4$ and $10 T(\frac{n}{2}) \geq 10Cn^4 (\frac{1}{2})^4$ from equation \eqref{eq:Tn}
+	\begin{equation}\label{eq:innerI}
+       q\sum_{i=1}^k u_i^4 \leq 10 (\frac{1}{2})^4 
+	\end{equation}
+	We have \eqref{eq:innerI} $\Rightarrow$ \eqref{eq:outerI}. The constraint is that $u_1\leq u_2 \leq \dots \leq u_k \leq \frac{1}{2}$ and $\sum_{i=1}^k u_i = 1$. Therefore we have $u_1 \leq \frac{1}{k}, u_2 \leq \frac{1}{k-1}, \dots, u_{k-1} \leq \frac{1}{2}$.
+	\begin{equation}\label{eq:outerOne}
+	 q[2(\frac{1}{2})^4 + \sum_{i=3}^k (\frac{1}{i})^4] \leq 10 (\frac{1}{2})^4
+	\end{equation}
+	We have \eqref{eq:outerOne} $\Rightarrow$ \eqref{eq:innerI}. And \eqref{eq:outerOne} is equivalent to
+	$\sum_{i=3}^k (\frac{1}{i})^4 \leq \frac{9}{8}(\frac{1}{2})^4$
+	\begin{align*}
+		\sum_{i=3}^k (\frac{1}{i})^4 & < \frac{1}{9}\sum_{i=3}^k (\frac{1}{i})^2 \\
+		& < \frac{1}{9}\sum_{i=3}^k (\frac{1}{(i-1)i}) \\
+		& < \frac{1}{18} < \frac{9}{8}(\frac{1}{2})^4
+	\end{align*}
+	Therefore, \eqref{eq:outerI} holds and from \eqref{eq:Tn} and $T(k) \leq T(\frac{n}{2})$ we have 
+	\begin{align}
+		T(n)  & \leq Cn^4 + 11T(\frac{n}{2}) \\
+		& \leq C n^4 + 11 q C (\frac{n}{2})^4 = \frac{16}{5} C n^4
+	\end{align}
+\end{proof}	
+\begin{remark}
+		The condition added by Proposition \ref{prop:alg_complexity} is a sufficient condition for $T(n) = O(n^4)$. It encompasses a large number of graphs when each \texttt{Split} does not produce more than $\frac{n}{2}$ set and large set whose cardinality large than $\frac{n}{2}$.
+		We believe $T(n)=O(n^4)$ can be obtained under a more tolerant condition.
+\end{remark}		
+\section{Experiment Detail}
+Since Info-Detection is a graph-based method, how to choose graph weight $w_{ij} = \mathrm{affinity}(x_i, x_j)$ is important for practical application of Info-Detection. For our experiment, we use Gaussian kernel $w_{ij} = \exp(-\gamma \norm{x_i - x_j}^2)$, Laplacian kernel $w_{ij} = \exp(-\gamma \norm{x_i - x_j}_1)$. We also try k-neighbor filtering. That is, after counting $w_{ij}$, we only preserve the largest $k$ weight. Suppose $w_{i1} > w_{i2} > \dots > w_{in}$, then
+$$
+w'_{ij}  = 
+\begin{cases}
+ w_{ij} & j \leq k \\
+ 0 & j > k
+\end{cases}
+$$
+By using $k$-neighbor filtering, the graph has less edge and Info-Detection can run much faster. On the other hand, it restricts the linkage of graph node to its k-nearest neighbors, which makes Info-Detection more robust.
+The source code of our experiment is available \footnote{\scriptsize\url{https://github.com/zhaofeng-shu33/info-detection-experiment}} for reproduction.
+For our experiment comparison, the accuracy of isolation-forest and elliptic envelope is influenced by their intrinsic randomness. With the same parameter configuration, we select the result of one run of it, not possibly the best result. Info-Detection, one class SVM and local outlier detector are deterministic method and do not have this problem.
+For local outlier factor, isolation forest and elliptic envelope, they need to know the number of outliers in advance. We set this parameter to be ground truth for these three methods to produce best result. We also tune the number of neighbor parameter for local outlier factor. For Info-Detection, we try different metrics and select the best.
+\end{document}

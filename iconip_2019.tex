@@ -133,11 +133,11 @@ Info-clustering is originally implemented by solving equation \eqref{eq:hlambda}
 
 An improvement is proposed in \cite{RN4} using parametric maximum flow to finish the job. Although this method can achieve $\abs{V} \textrm{MF}(G)$ time complexity theoretically, in practice it performs not well. Besides, it also increases the spacial complexity and has the floating point accuracy problem. 
 
-In this section, we give an improvement which achieves $\abs{V} \textrm{MF}(G)$ time complexity in general, but with only $\textrm{S}(G)$ spatial complexity and no floating point issue. Specifically,
-we notice that different invocation of Dilworth truncation is independent and does not utilize the intrinsic hierarchical structure in the original version of PSP algorithm \cite{RN3}. By using the hierarchical tree structure, we can invoke Dilworth truncation on smaller graph in later computation and make the total computation one order of magnitude faster than previous.
-
 \subsection{Improved Algorithm} 
-Since the PSP has the inclusion relationship $\P_{i+1} \preceq \P_i$, we can restrict further invocation of DT to smaller graphs. To be more specific, suppose we get $P_i = {C_1, \dots, C_t}$ for the first invocation of DT. Then we can compute PSP for each $C_i(i=1,\dots, t)$ respectively and construct those $P_j(j>i)$ from the subgraph computation. For $P_j(j<i)$, we can contract the graph $G$  to $G^t$ which has $t$ nodes by contracting each $C_i$ to a single node. By applying DT to $G^t$ can we get $P_j(j<i)$. We summarize our improved version in Algorithm \ref{alg:psp_i_simplified}.
+In this section, we give an improvement which achieves $\abs{V} \textrm{MF}(G)$ time complexity in general, but with only $\textrm{S}(G)$ spatial complexity and no floating accuracy issue. Specifically,
+we notice that different invocation of Dilworth truncation is independent and does not utilize the intrinsic hierarchical structure in the original version of PSP algorithm \cite{RN3}. If the hierarchical tree structure is used, we can invoke Dilworth truncation (DT) on smaller graph in later computation and make the total computation one order of magnitude faster than previous.
+
+To be more specific, suppose we get $P_i = {C_1, \dots, C_t}$ for the first invocation of DT. Then we can compute PSP for each $C_i(i=1,\dots, t)$ respectively and construct those $P_j(j>i)$ from the subgraph computation. For $P_j(j<i)$, we can contract the graph $G$  to $G^t$ which has $t$ nodes by contracting each $C_i$ to a single node. By applying DT to $G^t$ can we get $P_j(j<i)$. We summarize our improved version in Algorithm \ref{alg:psp_i_simplified}.
 
 \begin{algorithm}
 	\caption{An Improved Principal Sequence of Partition Algorithm}\label{alg:psp_i_simplified}

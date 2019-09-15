@@ -131,9 +131,7 @@ The largest critical value is equal to $\gamma_N$ and the largest set in $\P_{k-
 
 Info-clustering is originally implemented by solving equation \eqref{eq:hlambda} for different critical values \cite{RN3}. For given critical value, a procedure called Dilworth truncation (DT) can be used to get the minimum value and corresponding partition. This implementation has $\abs{V}^2 \textrm{MF}(G)$ time complexity while \textrm{MF} represents the time complexity of maximum flow algorithm for a graph $G$. 
 
-An improvement is proposed in \cite{RN4} using parametric maximum flow to finish the job. Although this method can achieve $\abs{V} \textrm{MF}(G)$ theoretically, it also increases the spacial complexity to $ \abs{V} \textrm{S}(G)$ where $\textrm{S}$ represents the spacial complexity to store a graph structure $G$. For dense graphs with $\abs{V}^2$ non-zero floating-point weight, the spacial complexity $\abs{V}^3$ is formidable. 
-% analysis of spatial complexity of pmf
-Another problem of parametric maximum flow implementation is the floating point accuracy. Since this method uses the flow map of last computation to initiate the initial flow map of next computation for maximal flow algorithm, the excess flow of some nodes may not be exactly zero. The non-zero excess can lead to unpredictable result and currently there is no good idea to tackle this issue. The above two problems prohibits parametric implementation from practical usage.
+An improvement is proposed in \cite{RN4} using parametric maximum flow to finish the job. Although this method can achieve $\abs{V} \textrm{MF}(G)$ time complexity theoretically, in practice it performs not well. Besides, it also increases the spacial complexity and has the floating point accuracy problem. 
 
 In this section, we give an improvement which achieves $\abs{V} \textrm{MF}(G)$ time complexity in general, but with only $\textrm{S}(G)$ spatial complexity and no floating point issue. Specifically,
 we notice that different invocation of Dilworth truncation is independent and does not utilize the intrinsic hierarchical structure in the original version of PSP algorithm \cite{RN3}. By using the hierarchical tree structure, we can invoke Dilworth truncation on smaller graph in later computation and make the total computation one order of magnitude faster than previous.
@@ -145,7 +143,7 @@ Since the PSP has the inclusion relationship $\P_{i+1} \preceq \P_i$, we can res
 	\caption{An Improved Principal Sequence of Partition Algorithm}\label{alg:psp_i_simplified}
 	\begin{algorithmic}[1]
 		\REQUIRE a directed graph $G(V, E)$; edge weight map $c(e)$ for $e\in E$
-		\ENSURE a hierarchical tree $\mathcal{T}(K, E)$ where $K \subseteq 2^{V}$ is node set and $E$ is edge set. $c'$ is edge weight map.
+		\ENSURE a hierarchical tree $\mathcal{T}(K, E)$ where $K \subseteq 2^{V}$ is node set and $E$ is edge set.
 		\STATE initialize tree $\mathcal{T}$ with $V$ as root node, $\{j\}(j\leq \abs{V})$ as leaf node and no stem node.
 		\STATE \texttt{Split}($G, V$)
 		\FUNCTION{\texttt{Split}($\widetilde{G}, \widetilde{V}$)}
@@ -187,9 +185,9 @@ Since the PSP has the inclusion relationship $\P_{i+1} \preceq \P_i$, we can res
 \end{example}		
 
 To analyze the time complexity of Algorithm \ref{alg:psp_i_simplified}. We suppose $\abs{V} = n, \abs{E} = O(n^2)$ and highest-relabel preflow algorithm is used to solve the maximum flow problem. Then \texttt{DT} routine has $O(n^4)$ time complexity. 
-We use $T(n)$ to represent the time complexity of \texttt{Split} when the graph has $n$ nodes. Under very general conditions, we can show that $T(n) = O(n^4)$. The detailed analysis is put in the Appendix \ref{sec:AA}.
+We use $T(n)$ to represent the time complexity of \texttt{Split} when the graph has $n$ nodes. Under very general conditions, we can show that $T(n) = O(n^4)$. 
 
-In Algorithm \ref{alg:psp_i_simplified}, the computation is done on the input graph and only has $O(n^2)$ space complexity. This is superior than parametric preflow improvement. Besides, Algorithm \ref{alg:psp_i_simplified} does not have floating accuracy problem since each DT computation is freshly started. 
+In Algorithm \ref{alg:psp_i_simplified}, the graph contraction is done on the input graph without creating extra structures. The space complexity is the same with the storage needed for the input graph. 
 
 Our improvement of algorithm is not restricted to Info-Detection scenario. It can be used in general graph partition problems when PSP structure is needed.
 

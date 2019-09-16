@@ -126,15 +126,15 @@ Each $\P_i$ is the solution to the following optimization problem:
 h_{\P}(\lambda) &=  f[\P] - \abs{\P} \lambda  \label{eq:hPL}\\
 h(\lambda) &= \min_{\P \in \Pi'(V)} h_{\P}(\lambda) \label{eq:hlambda}
 \end{align}
-We call $\lambda^*$ is a critical value for PSP if $\P_i, \P_{i+1}$ are both minimizer for $h(\lambda^*)$ in \eqref{eq:hlambda}.
+We call $\lambda^*$ a critical value for PSP if $\P_i, \P_{i+1}$ are both minimizer for $h(\lambda^*)$ in \eqref{eq:hlambda}.
 The largest critical value is equal to $\gamma_N$ and the largest set in $\P_{k-1}$ is equal to $B$. 
 
-Info-clustering is originally implemented by solving equation \eqref{eq:hlambda} for different critical values \cite{RN3}. For given critical value, a procedure called Dilworth truncation (DT) can be used to get the minimum value and corresponding partition. This implementation has $\abs{V}^2 \textrm{MF}(G)$ time complexity while \textrm{MF} represents the time complexity of maximum flow algorithm for a graph $G$. 
+Info-clustering is originally implemented by solving equation \eqref{eq:hlambda} for different critical values \cite{RN3}. For given critical value, a procedure called Dilworth truncation (DT) can be used to get the minimum value and corresponding partition for \eqref{eq:hlambda}. The implementation in \cite{RN3} has $\abs{V}^2 \textrm{MF}(G)$ time complexity while \textrm{MF} represents the time complexity of maximum flow algorithm for a graph $G$. 
 
-An improvement is proposed in \cite{RN4} using parametric maximum flow to finish the job. Although this method can achieve $\abs{V} \textrm{MF}(G)$ time complexity theoretically, in practice it performs not well. Besides, it also increases the spacial complexity and has the floating point accuracy problem. 
+An improvement is proposed in \cite{RN4} using parametric maximum flow to finish the job. Although this method can achieve $\abs{V} \textrm{MF}(G)$ time complexity theoretically, in practice it performs not well. Besides, it also increases the space complexity and has the floating point accuracy problem. 
 
 \subsection{Improved Algorithm} 
-In this section, we give an improvement which achieves $\abs{V} \textrm{MF}(G)$ time complexity in general, but with only $\textrm{S}(G)$ spatial complexity and no floating accuracy issue. Specifically,
+In this section, we give an improvement which achieves $\abs{V} \textrm{MF}(G)$ time complexity in general, and the space complexity is the same with \cite{RN4}. Specifically,
 we notice that different invocation of Dilworth truncation is independent and does not utilize the intrinsic hierarchical structure in the original version of PSP algorithm \cite{RN3}. If the hierarchical tree structure is used, we can invoke Dilworth truncation (DT) on smaller graph in later computation and make the total computation one order of magnitude faster than previous.
 
 To be more specific, suppose we get $P_i = {C_1, \dots, C_t}$ for the first invocation of DT. Then we can compute PSP for each $C_i(i=1,\dots, t)$ respectively and construct those $P_j(j>i)$ from the subgraph computation. For $P_j(j<i)$, we can contract the graph $G$  to $G^t$ which has $t$ nodes by contracting each $C_i$ to a single node. By applying DT to $G^t$ can we get $P_j(j<i)$. We summarize our improved version in Algorithm \ref{alg:psp_i_simplified}.
@@ -179,9 +179,9 @@ To be more specific, suppose we get $P_i = {C_1, \dots, C_t}$ for the first invo
 
 \begin{example}
 	We use a simple example to explain Algorithm \ref{alg:psp_i_simplified}. Consider a graph $G(V, E)$ with $V=\{1,2,3,4\}, E=\{(1,2),(1,3),(2,3),(1,4),(2,4)\}$. The weight values are $w_{13}=2, w_{12}=5, w_{23}=2, w_{14}=1, w_{24}=1$. The graph is illustrated
-	in Fig. \ref{fig:alg_eg} (b). Initially, the hierarchical tree is shown in Fig. \ref{fig:alg_eg} (a). Computing $\gamma' = \frac{11}{4-1}, \tilde{h} = -\frac{16}{3} < -\gamma' $ and $\P' = \{\{1,2,3\},\{4\}\}$ from line \ref {alg:DT} in Algorithm \ref{alg:psp_i_simplified} we get the hierarchical tree shown in Fig. \ref{fig:alg_eg} (c).
+	in Fig. \ref{fig:alg_eg} (a). Initially, the hierarchical tree is shown in Fig. \ref{fig:alg_eg} (b). Computing $\gamma' = \frac{11}{4-1}, \tilde{h} = -\frac{16}{3} < -\gamma' $ and $\P' = \{\{1,2,3\},\{4\}\}$ from line \ref {alg:DT} in Algorithm \ref{alg:psp_i_simplified} we get the hierarchical tree shown in Fig. \ref{fig:alg_eg} (c).
 	
-	Then we run PSP for the subgraph $G[\{1,2,3\}]$, $\gamma' = \frac{9}{2}, \tilde{h} = -5 < -\gamma'$ and $\P= \{\{1,2\},\{3\}\}$ we get the tree shown in Fig. \ref{fig:alg_eg} (d). The other computation calculate the edge weight of $\mathcal{T}$ shown in Fig. \ref{fig:alg_eg} (d).
+	Then we run PSP for the subgraph $G[\{1,2,3\}]$, $\gamma' = \frac{9}{2}, \tilde{h} = -5 < -\gamma'$ and $\P= \{\{1,2\},\{3\}\}$ we get the tree shown in Fig. \ref{fig:alg_eg} (d). The other computation gives the edge weight of $\mathcal{T}$ shown in Fig. \ref{fig:alg_eg} (d).
 \end{example}		
 
 To analyze the time complexity of Algorithm \ref{alg:psp_i_simplified}. We suppose $\abs{V} = n, \abs{E} = O(n^2)$ and highest-relabel preflow algorithm is used to solve the maximum flow problem. Then \texttt{DT} routine has $O(n^4)$ time complexity. 

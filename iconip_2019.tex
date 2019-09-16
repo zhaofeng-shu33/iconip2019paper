@@ -189,13 +189,13 @@ We use $T(n)$ to represent the time complexity of \texttt{Split} when the graph 
 
 In Algorithm \ref{alg:psp_i_simplified}, the graph contraction is done on the input graph without creating extra structures. The space complexity is the same with the storage needed for the input graph. 
 
-Our improvement of algorithm is not restricted to Info-Detection scenario. It can be used in general graph partition problems when PSP structure is needed.
+Our improvement is not restricted to Info-Detection scenario. It can be used in general graph partition problems when PSP structure is needed.
 
 \section{Experiment Result}\label{sec:Experiemt}
 In this Section, we first illustrate the decision boundary of Info-Detection by two artificial datasets. Then we conduct an experiment matrix, in which Info-Detection is compared with other commonly used outlier detection algorithms on both artificial and real-world datasets.
 
-The first artificial dataset is two Gaussian blobs with the same center and standard deviation 0.5. There are 255 points in total and 45 noisy points outside.
-The second dataset is two semi-circles which located at different centers. There are 300 points on the two semi-circles, which are evenly distributed among the angle but deviated from the radius in Gaussian distribution. There are 45 points not belonging to the "moon" structure and are treated as outlier.
+The first artificial dataset is two Gaussian blobs with the same center and standard deviation 0.5. There are 255 points generated in this way and 45 noisy points outside.
+The second dataset is two semi-circles which located at different centers. There are 300 points on the two semi-circles and 45 points not belonging to the "moon" structure and are treated as outlier.
 
 Info-Detection first splits each dataset into inlier set and outlier set. Then the boundary curve is generated from the inlier set. The curve has the following equation from Proposition \ref{prop:main}:
 \begin{equation}
@@ -218,7 +218,7 @@ Besides the two artificial dataset, we also prepare two real-world datasets: Lym
 All results in Table \ref{tab:compare} achieves TPR $\geq 90\%$. It can be seen that Info-Detection achieves the highest TNR for these datasets, which means Info-Detection detects no less outliers than other methods.
 
 \section{Conclusion}\label{sec:Conclusion}
-In this paper, we propose Info-Detection, which is a cluster-analysis based method and does not require the number of outliers in advance. We design an efficient algorithm to get the do Info-Detection based on existing PSP algorithms. By experiments we show that Info-Detection outperforms other methods.  
+In this paper, we propose Info-Detection, which is a cluster-analysis based method and does not require the number of outliers in advance. We design an efficient algorithm for Info-Detection based on existing PSP algorithms. By experiments we show that Info-Detection outperforms other methods.  
 %
 % ---- Bibliography ----
 %

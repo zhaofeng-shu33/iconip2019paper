@@ -149,7 +149,7 @@ To be more specific, suppose we get $P_i = {C_1, \dots, C_t}$ for the first invo
 		\STATE $\gamma' = \frac{w}{\abs{V(\widetilde{G})}-1}$ where $V(\widetilde{G})$ is the node set of graph $\widetilde{G}$ \label{alg:gamma_apostrophe}
 		\STATE $(\tilde{h}, P') = \texttt{DT}(\widetilde{G}, \gamma')$ where $\P'$ is minimizer of $h(\gamma')$ in equation \eqref{eq:hlambda} and $\tilde{h}$ is the corresponding minimum value.  \label{alg:DT}
 		\IF{$\tilde{h} = - \gamma'$}
-		\STATE add edge weight $\gamma'$ in $\mathcal{T}$ starting from $\widetilde{V}$ to its children.
+		\STATE add edge weight $\gamma'$ in $\mathcal{T}$ starting from $\widetilde{V}$ to its children
 		\ELSE
 		\FOR{$S$ in $P'$ and $\abs{S}>1$}
 		\STATE make each children of $\widetilde{V}$ in $\mathcal{T}$ have new parent $S$		
@@ -189,7 +189,7 @@ In Algorithm \ref{alg:psp_i_simplified}, the graph contraction is done on the in
 
 Our improvement is not restricted to Info-Detection scenario. It can be used in general graph partition problems when PSP structure is needed.
 
-\section{Experiment Result}\label{sec:Experiemt}
+\section{Experimental Results}\label{sec:Experiemt}
 In this Section, we first illustrate the decision boundary of Info-Detection by two artificial datasets. Then we conduct an experiment matrix, in which Info-Detection is compared with other commonly used outlier detection algorithms on both artificial and real-world datasets.
 
 The first artificial dataset is one Gaussian blob and some noisy points outside.

@@ -55,8 +55,6 @@ Info-Detection is a cluster analysis based method. Some authors use density-base
 
 Though info-clustering has good theoretical properties, it has high time complexity to compute, which limited its application. In this paper, we improve the implementation of info-clustering, which is one order of magnitude faster than the original one. We also propose a prediction scheme which can predict new observations in linear time complexity. To demonstrate our method, we prepare two artificial and two real-world datasets and test Info-Detection and other methods on them. Empirical comparison shows that Info-Detection gives best result on these datasets and is suitable for different kinds of data.
 
-The paper is organized as follows. In Section \ref{sec:ID}, we make a brief introduction of info-clustering and propose Info-Detection. In Section \ref{sec:Alg}, we review the original algorithm of info-clustering and give our new accelerated implementation. In Section \ref{sec:Experiemt}, we conduct experiments of outlier detection and compare Info-Detection with other methods. Finally, we make the conclusion in Section \ref{sec:Conclusion}.
-
 The notational convention of this paper is as follows: Let $x_i$ represents the feature vector for the $i$-th data point in the dataset. The directed graph is denoted by $G(V, E)$. Node index set $V=\{1, 2,\dots, \abs{V}\}$. Node set $Z_V=\{Z_i | i \in V\}$. Edge set $E$ is the collection of tuple $(i,j)$. For $B\subseteq V$, edge subset $E(B) = \{(i,j)| i, j \in B,(i,j)\in E\}$ is the edge set restricted on $B$. Each edge is associated with a non-negative weight $w_{ij}$, which is computed from $x_i$ and $x_j$ with a given affinity metric. $\P$ is a partition of $V$. That is, $P=\{C_1, \dots, C_k\}, \cup_{i=1}^k C_i=V$ and $i\neq j \Rightarrow C_i \cap C_j =\emptyset $. $f(\cdot)$ is the graph in-cut function, defined as $f(C)=\sum_{i \neq C, j\in C, (i,j) \in E} w_{ij}$. $\Pi$ is the collection of all partitions of $V$ and $\Pi'=\Pi\backslash\{V\}$. A partial order $ \P_1 \preceq \P_2$ on $\Pi$ is defined as
 $C \in \P_1 \Rightarrow \exists C' \in \P_2 \, s.t. \, C \subseteq C'$.
 Finally, $f[\cdot]$ is a function defined on $\Pi$ by $f[\P]=\sum_{C\in \P}f(C)$ and $\textrm{maximal} (F)=\{B\in F | \not\exists B' \in F s.t.\, B \subseteq B'\}$.
@@ -194,8 +192,8 @@ Our improvement is not restricted to Info-Detection scenario. It can be used in 
 \section{Experiment Result}\label{sec:Experiemt}
 In this Section, we first illustrate the decision boundary of Info-Detection by two artificial datasets. Then we conduct an experiment matrix, in which Info-Detection is compared with other commonly used outlier detection algorithms on both artificial and real-world datasets.
 
-The first artificial dataset is two Gaussian blobs with the same center and standard deviation 0.5. There are 255 points generated in this way and 45 noisy points outside.
-The second dataset is two semi-circles which located at different centers. There are 300 points on the two semi-circles and 45 points not belonging to the "moon" structure and are treated as outlier.
+The first artificial dataset is one Gaussian blob and some noisy points outside.
+The second dataset is 2 interlocking half-moons with some outliers around.
 
 Info-Detection first splits each dataset into inlier set and outlier set. Then the boundary curve is generated from the inlier set. The curve has the following equation from Proposition \ref{prop:main}:
 \begin{equation}

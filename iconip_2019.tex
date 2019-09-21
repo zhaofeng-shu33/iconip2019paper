@@ -97,7 +97,7 @@ Suppose $\gamma_N=I(Z_B)$ and $B$ is the maximal set to achieve the maximum. Thi
 \end{example}	
 
 \subsection{Info-Detection Method}
-For our Info-Detection proposal, we use $\gamma_N$ as a threshold to detect anomaly. Using $\gamma_N$ implicitly assumes inliers come from one class. Given $G(V, E)$, we first compute $\gamma_N$ and $B$. Then nodes in $B$ are inliers while nodes in $V\backslash B$  are outliers. We can score outlier $Z_j$ for $j \in V\backslash B$ with the depth of the set $\{j\}$ in the hierarchical tree. Below is a simple example showing how Info-Detection is used.
+For our Info-Detection proposal, we use $\gamma_N$ as a threshold to detect anomaly.  Given $G(V, E)$, we first compute $\gamma_N$ and $B$. Then nodes in $B$ are inliers while nodes in $V\backslash B$  are outliers. We can score outlier $Z_j$ for $j \in V\backslash B$ with the depth of the set $\{j\}$ in the hierarchical tree. Below is a simple example showing how Info-Detection is used.
 \begin{example}
 	\begin{figure}[!ht]
 		\centering
@@ -106,7 +106,7 @@ For our Info-Detection proposal, we use $\gamma_N$ as a threshold to detect anom
 	\end{figure}
 	Consider a graph consisting of 6 nodes. Each node is corresponding to a point on Cartesian plane (Fig. \ref{fig:ex}.(b)). The grid has one unit and the edge weight $w_{ij} = \exp(-d_{ij}^2)$ where $d_{ij}$ is the Euclidean distance between $x_i$ and $x_j$ on the plane. For example, $w_{45} = \exp(-5)$. The edge direction is from $i$ to $j$ for $i<j$. From equation \eqref{eq:gammaN}, we can compute $B=\{1,2,3,4\}$ and $\gamma_N = \frac{4\exp(-1)+2\exp(-2)}{3}\approx 0.58$. The whole hierarchical tree $\mathcal{T}$ can also be computed, which is shown on Fig. \ref{fig:ex}.(a). The outlier score for $Z_6$ is higher than $Z_5$ from the tree depth interpretation.
 \end{example}
-If we are required to detect outliers in a multi-class dataset, we can use other critical values of $C_{\gamma}(Z_V)$ starting from the second largest one. Actually we do not need to manually choose which threshold to use.
+
 
 For newly added node $i'$. Let $V'=B\cup \{i'\}$, we can compute $\gamma'_N$ for $G(V', E(V'))$ and compare it with $\gamma_N$. If $\gamma'_N>\gamma_N$, $i'$ is normal observation since it is more integrated with existing nodes. Otherwise, $i'$ is an anomaly. It can be shown that we do not need to compute $\gamma'_N$ to determine whether $\gamma'_N>\gamma_N$. We summarize our main result as follows:
 \begin{proposition}\label{prop:main}

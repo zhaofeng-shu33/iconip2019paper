@@ -192,12 +192,9 @@ In Algorithm \ref{alg:psp_i_simplified}, the graph contraction is done on the in
 Our improvement is not restricted to Info-Detection scenario. It can be used in general graph partition problems when PSP structure is needed.
 
 \section{Experimental Results}\label{sec:Experiemt}
-In this Section, we first illustrate the decision boundary of Info-Detection by two artificial datasets. Then we conduct an experiment matrix, in which Info-Detection is compared with other commonly used outlier detection algorithms on both artificial and real-world datasets.
+In this Section, we first illustrate the decision boundary of Info-Detection by two artificial datasets. Then we compare the running time of our implementation of PSP with previous work. Finally we conduct an experiment matrix, in which Info-Detection is compared with other commonly used outlier detection algorithms on both artificial and real-world datasets.
 
-The first artificial dataset is one Gaussian blob and some noisy points outside.
-The second dataset is 2 interlocking half-moons with some outliers around.
-
-Info-Detection first splits each dataset into inlier set and outlier set. Then the boundary curve is generated from the inlier set. The curve has the following equation from Proposition \ref{prop:main}:
+Info-Detection uses the boundary curve to make prediction on new observations and the boundary curve has the following form from Proposition \ref{prop:main}:
 \begin{equation}
 \sum_{j \in B} \exp(-\gamma \norm{x - x_j}^2)= \gamma_N
 \end{equation}
@@ -208,7 +205,7 @@ The weight is chosen by Gaussian kernel, which produces reasonable good result f
 	\caption{Detection boundary lines of different methods on different artificial dataset}	\label{fig:boundary}
 \end{figure}
 
-Next we compare our implementation of PSP with previous work \cite{RN3,RN4}. The comparison is done on Gaussian blobs dataset ($\abs{E}=O(\abs{V}^2)$) and a graph dataset with two hierarchical levels($\abs{E}=O(\abs{V}^{3/2})$). We use the CPU times to measure the practical speed of each implementation, the result in Fig.\ref{fig:er}.(a,b) shows our implementation is much faster than previous ones.
+Next we compare our implementation of PSP with previous methods \cite{RN3,RN4}. The comparison is done on Gaussian blobs dataset ($\abs{E}=O(\abs{V}^2)$) and a graph dataset with two hierarchical levels($\abs{E}=O(\abs{V}^{3/2})$). We use the CPU times to measure the practical speed of each implementation and the result in Fig.\ref{fig:er}.(a,b) shows our implementation is much faster than previous ones.
 
 \begin{figure}[!ht]
 \centering
@@ -216,7 +213,7 @@ Next we compare our implementation of PSP with previous work \cite{RN3,RN4}. The
 \caption{Experimental results on datasets}\label{fig:er}
 \end{figure}
 
-We also compare Info-Detection with other commonly used techniques on three dataset: GaussianBlob, Moon and Lymphography. The other methods include local outlier factor \cite{Breunig}, isolation forest \cite{if}, elliptic envelope \cite{rousseeuw1999fast} and one class SVM \cite{svm}. We use two metrics to measure the overall performance of the detection: true positive rate (TPR) and true negative rate (TNR). The inlier is treated as positive sample. TPR measures the percentage of right detection in inlier set while TNR measures that in outlier set. It is difficult for a method to achieve high score on both two metrics. We manage to maximize TNR while controlling TPR $\geq 90\%$ for each method. The result for TNR in Fig.\ref{fig:er}.(c) shows that Info-Detection is competitive with local outlier factor and outperforms other methods on these datasets.
+We also compare Info-Detection with other commonly used techniques on three dataset: GaussianBlob, Moon and UCI Lymphography. The other methods include local outlier factor \cite{Breunig}, isolation forest \cite{if}, elliptic envelope \cite{rousseeuw1999fast} and one class SVM \cite{svm}. We use two metrics to measure the overall performance of the detection: true positive rate (TPR) and true negative rate (TNR). The inlier is treated as positive sample. TPR measures the percentage of right detection in inlier set while TNR measures that in outlier set. It is difficult for a method to achieve high score on both two metrics. We manage to maximize TNR while controlling TPR $\geq 90\%$ for each method. The result for TNR in Fig.\ref{fig:er}.(c) shows that Info-Detection is competitive with local outlier factor and outperforms other methods on these datasets.
 
 \section{Conclusion}\label{sec:Conclusion}
 In this paper, we propose Info-Detection, which is a cluster-analysis based method and does not require the number of outliers in advance. We design an efficient algorithm for Info-Detection based on existing PSP algorithms. By experiments we show that Info-Detection outperforms other methods.  

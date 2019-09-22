@@ -201,21 +201,22 @@ Info-Detection first splits each dataset into inlier set and outlier set. Then t
 \begin{equation}
 \sum_{j \in B} \exp(-\gamma \norm{x - x_j}^2)= \gamma_N
 \end{equation}
-The weight is chosen by Gaussian kernel, which produces reasonable good result for these two artificial datasets. As shown by Fig. \ref{fig:boundary}.(a) and (b), the boundary curve for Info-Detection is approximately the closure of the set of inliers. We also draw the decision boundary for the elliptic envelope method in Fig. \ref{fig:boundary}.(c). Since the latter method assumes the inlier data is distributed in convex region, the decision boundary is an ellipse, which is not the ground truth.
+The weight is chosen by Gaussian kernel, which produces reasonable good result for these two artificial datasets. As shown by Fig. \ref{fig:boundary}. (a) and (b), the boundary curve for Info-Detection is approximately the closure of the set of inliers. We also draw the decision boundary for the elliptic envelope method in Fig. \ref{fig:boundary}.(c). Since the latter method assumes the inlier data is distributed in convex region, the decision boundary is an ellipse, which is not the ground truth.
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=\textwidth]{pic/outlier_boundary_illustration.eps}
 	\caption{Detection boundary lines of different methods on different artificial dataset}	\label{fig:boundary}
 \end{figure}
 
-Besides the two artificial datasets, we also use the UCI Lymphography dataset \cite{hics}. Lymphography dataset has 148 instances with 19 attributes and 6 outliers. We compare Info-Detection method with four commonly used techniques: local outlier factor \cite{Breunig}, isolation forest \cite{if}, elliptic envelope \cite{rousseeuw1999fast} and one class SVM \cite{svm}. We use two metrics to measure the overall performance of the detection: true positive rate (TPR) and true negative rate (TNR). The inlier is treated as positive sample. TPR measures the percentage of right detection in inlier set while TNR measures that in outlier set. It is difficult for a method to achieve high score on both two metrics. We manage to maximize TNR while controlling TPR $\geq 90\%$. The result is shown in Table \ref{tab:compare}.
-\begin{table}[!ht]
-\centering
-\InputIfFileExists{../../experiment/outlier_detection/build/id_compare.tex}{}{}
-\caption{Comparison of Info-Detection with other outlier detection algorithms on artificial and real-world datasets}\label{tab:compare}
-\end{table}
+Next we compare our implementation of PSP with previous work \cite{RN3,RN4}. The comparison is done on Gaussian blobs dataset ($\abs{E}=O(\abs{V}^2)$) and a graph dataset with two hierarchical levels($\abs{E}=O(\abs{V}^{3/2})$). We use the CPU times to measure the practical speed of each implementation, the result in Fig.\ref{fig:er}.(a,b) shows our implementation is much faster than previous ones.
 
-All results in Table \ref{tab:compare} achieves TPR $\geq 90\%$. It can be seen that Info-Detection achieves the highest TNR for GaussianBlob and Lymphography and the second highest for Moon.
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\textwidth]{pic/experimental_results_triple.eps}
+\caption{Experimental results on datasets}\label{fig:er}
+\end{figure}
+
+We also compare Info-Detection with other commonly used techniques on three dataset: GaussianBlob, Moon and Lymphography. The other methods include local outlier factor \cite{Breunig}, isolation forest \cite{if}, elliptic envelope \cite{rousseeuw1999fast} and one class SVM \cite{svm}. We use two metrics to measure the overall performance of the detection: true positive rate (TPR) and true negative rate (TNR). The inlier is treated as positive sample. TPR measures the percentage of right detection in inlier set while TNR measures that in outlier set. It is difficult for a method to achieve high score on both two metrics. We manage to maximize TNR while controlling TPR $\geq 90\%$ for each method. The result for TNR in Fig.\ref{fig:er}.(c) shows that Info-Detection is competitive with local outlier factor and outperforms other methods on these datasets.
 
 \section{Conclusion}\label{sec:Conclusion}
 In this paper, we propose Info-Detection, which is a cluster-analysis based method and does not require the number of outliers in advance. We design an efficient algorithm for Info-Detection based on existing PSP algorithms. By experiments we show that Info-Detection outperforms other methods.  

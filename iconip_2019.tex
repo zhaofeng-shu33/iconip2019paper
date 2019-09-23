@@ -67,7 +67,7 @@ I_{\P}(Z_V) & := \frac{ f[\P] }{  \abs{\mathcal{P}} - 1 } \label{eq:IP}\\
 I(Z_V) & := \min_{\mathcal{P} \in \Pi'(V)} I_{\mathcal{P}}(Z_V)  \label{eq:ms} \\
 C_{\gamma}(Z_V) & := \textrm{maximal}\{ B \in V \vert \, \abs{B} > 1, I(Z_B) > \gamma \} \label{eq:CgZv}
 \end{align}
-In the above equation, $f[\P]$ can be interpreted as the inter-cluster affinity for a given partition. $f[\P]$ is averaged over the number of partition $\abs{\P}$. For mathematical reasons, the denominator is $\abs{\P}-1$. $I(Z_B)$ is the minimum value over all averaged inter-cluster affinity and represents the shared information of $Z_B$. $C_{\gamma}(Z_V)$ collects those set whose shared information is larger than a given threshold. It is noted that for $I_{\P}(Z_B)$, $\P$ is the partition for $B$ and the subgraph $G(B,E(B))$ is considered when computing $f[\P]$.
+In equation \eqref{eq:IP}, $f[\P]$ can be interpreted as the inter-cluster affinity for a given partition. $f[\P]$ is averaged over the number of partition $\abs{\P}$. For mathematical reasons, the denominator is $\abs{\P}-1$. $I(Z_B)$ is the minimum value over all averaged inter-cluster affinity and represents the shared information of $Z_B$. $C_{\gamma}(Z_V)$ collects those set whose shared information is larger than a given threshold. It is noted that for $I_{\P}(Z_B)$, $\P$ is the partition for $B$ and the subgraph $G(B,E(B))$ is considered when computing $f[\P]$.
 
 It is shown in info-clustering theory that each set in $C_{\gamma} (Z_V)$ is non-intersecting and every two sets from $C(Z_V)=\bigcup_{\gamma \geq 0} C_{\gamma}(Z_V)$ are either disjoint or have subset relationship. Therefore, sets from $C(Z_V)$ can be put in a tree $\mathcal{T}$ with the property that $A$ is a parent of $B$ if $B\subset A$. To make $\mathcal{T}$ complete, $\mathcal{T}$ also includes $\{j\}$ as leaf node. 
 
@@ -184,7 +184,7 @@ To be more specific, suppose we get $P_i = {C_1, \dots, C_t}$ for the first invo
 	Then we run PSP for the subgraph $G[\{1,2,3\}]$, $\gamma' = \frac{9}{2}, \tilde{h} = -5 < -\gamma'$ and $\P= \{\{1,2\},\{3\}\}$ we get the tree shown in Fig. \ref{fig:alg_eg} (d). Other computation gives the edge weight of $\mathcal{T}$ shown in Fig. \ref{fig:alg_eg} (d).
 \end{example}		
 
-To analyze the time complexity of Algorithm \ref{alg:psp_i_simplified}. We suppose $\abs{V} = n, \abs{E} = O(n^2)$ and highest-relabel preflow algorithm is used to solve the maximum flow problem. Then \texttt{DT} routine has $O(n^4)$ time complexity. 
+To analyze the time complexity of Algorithm \ref{alg:psp_i_simplified}, we suppose $\abs{V} = n, \abs{E} = O(n^2)$ and highest-relabel preflow algorithm is used to solve the maximum flow problem. Then \texttt{DT} routine has $O(n^4)$ time complexity. 
 We use $T(n)$ to represent the time complexity of \texttt{Split} when the graph has $n$ nodes. Under very general conditions, we can show that $T(n) = O(n^4)$. 
 
 In Algorithm \ref{alg:psp_i_simplified}, the graph contraction is done on the input graph without creating extra structures. The space complexity is the same with the storage needed for the input graph. 

@@ -20,3 +20,4 @@ if ! command -v tlmgr > /dev/null; then
     $INSTALL/install-tl -profile $INSTALL/tl.profile;        
     tlmgr install beamer etoolbox translator caption mathtools algorithms float footmisc;          
 fi
+make

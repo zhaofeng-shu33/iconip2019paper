@@ -10,8 +10,6 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- script: ./install_dep.sh
-  displayName: 'install step'
+- script: ./build.sh
+  displayName: 'build and install step'
 
-- script: make
-  displayName: 'build step'

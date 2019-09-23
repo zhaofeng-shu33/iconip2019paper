@@ -10,7 +10,7 @@ $(BUILD_DIR)/exportlist.bib: exportlist.bib
     
 $(BUILD_DIR)/iconip_2019.pdf: iconip_2019.tex
 	mkdir -p $(BUILD_DIR)
-	pdflatex -output-directory=$(BUILD_DIR) iconip_2019.tex
+	xelatex -output-directory=$(BUILD_DIR) iconip_2019.tex
 	cd $(BUILD_DIR) && bibtex iconip_2019.aux && cd ..
-	pdflatex -output-directory=$(BUILD_DIR) iconip_2019.tex
-	pdflatex -output-directory=$(BUILD_DIR) iconip_2019.tex
+	xelatex -output-directory=$(BUILD_DIR) iconip_2019.tex
+	xelatex -output-directory=$(BUILD_DIR) iconip_2019.tex

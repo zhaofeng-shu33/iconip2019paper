@@ -1,1 +1,1 @@
-[![Build Status](https://dev.azure.com/info-clustering/iconip2019_paper/_apis/build/status/zhaofeng-shu33.iconip2019paper?branchName=master)](https://dev.azure.com/info-clustering/iconip2019_paper/_build/latest?definitionId=1&branchName=master)
+[![CircleCI](https://circleci.com/gh/zhaofeng-shu33/iconip2019paper.svg?style=svg)](https://circleci.com/gh/zhaofeng-shu33/iconip2019paper)

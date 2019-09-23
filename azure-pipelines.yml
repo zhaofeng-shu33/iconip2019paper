@@ -8,7 +8,14 @@ trigger:
 
 pool:
   vmImage: 'ubuntu-latest'
-
+  
+steps:
+- task: CacheBeta@0
+  inputs:
+    key: texlive
+    path: /tmp/texlive
+  displayName: cache texlive
+  
 steps:
 - script: ./build.sh
   displayName: 'build and install step'

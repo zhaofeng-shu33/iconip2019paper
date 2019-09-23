@@ -13,3 +13,5 @@ steps:
 - script: ./build.sh
   displayName: 'build and install step'
 
+- publish: $(System.DefaultWorkingDirectory)/build/iconip_2019.pdf
+  artifact: iconip-2019-paper

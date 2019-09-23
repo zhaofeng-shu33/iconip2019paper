@@ -143,13 +143,13 @@ To be more specific, suppose we get $P_i = {C_1, \dots, C_t}$ for the first invo
 	\caption{An Improved Principal Sequence of Partition Algorithm}\label{alg:psp_i_simplified}
 	\begin{algorithmic}[1]
 		\REQUIRE a directed graph $G(V, E)$; edge weight map $c(e)$ for $e\in E$
-		\ENSURE a hierarchical tree $\mathcal{T}(K, E)$ where $K \subseteq 2^{V}$ is node set and $E$ is edge set.
-		\STATE initialize tree $\mathcal{T}$ with $V$ as root node, $\{j\}(j\leq \abs{V})$ as leaf node and no stem node.
+		\ENSURE a hierarchical tree $\mathcal{T}(K, E)$ where $K \subseteq 2^{V}$ is node set and $E$ is edge set
+		\STATE initialize tree $\mathcal{T}$ with $V$ as root node, $\{j\}(j\leq \abs{V})$ as leaf node and no stem node
 		\STATE \texttt{Split}($G, V$)
 		\FUNCTION{\texttt{Split}($\widetilde{G}, \widetilde{V}$)}
 		\STATE $w$ is the summation of all edge weights of $\widetilde{G}$ 
 		\STATE $\gamma' = \frac{w}{\abs{V(\widetilde{G})}-1}$ where $V(\widetilde{G})$ is the node set of graph $\widetilde{G}$ \label{alg:gamma_apostrophe}
-		\STATE $(\tilde{h}, P') = \texttt{DT}(\widetilde{G}, \gamma')$ where $\P'$ is minimizer of $h(\gamma')$ in equation \eqref{eq:hlambda} and $\tilde{h}$ is the corresponding minimum value.  \label{alg:DT}
+		\STATE $(\tilde{h}, P') = \texttt{DT}(\widetilde{G}, \gamma')$ where $\P'$ is minimizer of $h(\gamma')$ in equation \eqref{eq:hlambda} and $\tilde{h}$ is the corresponding minimum value  \label{alg:DT}
 		\IF{$\tilde{h} = - \gamma'$}
 		\STATE add edge weight $\gamma'$ in $\mathcal{T}$ starting from $\widetilde{V}$ to its children
 		\ELSE
@@ -213,7 +213,7 @@ Next we compare our implementation of PSP with previous methods \cite{RN3,RN4}. 
 \caption{Experimental results on datasets}\label{fig:er}
 \end{figure}
 
-We also compare Info-Detection with other commonly used techniques on three dataset: GaussianBlob, Moon and UCI Lymphography. The other methods include local outlier factor \cite{Breunig}, isolation forest \cite{if}, elliptic envelope \cite{rousseeuw1999fast} and one class SVM \cite{svm}. We use two metrics to measure the overall performance of the detection: true positive rate (TPR) and true negative rate (TNR). The inlier is treated as positive sample. TPR measures the percentage of right detection in inlier set while TNR measures that in outlier set. It is difficult for a method to achieve high score on both two metrics. We manage to maximize TNR while controlling TPR $\geq 90\%$ for each method. The hyper parameters and metric are tuned for each method and the best result of TNR is shown in Fig.\ref{fig:er}.(c). The results show that Info-Detection is competitive with local outlier factor and outperforms other methods on these datasets.
+We also compare Info-Detection with other commonly used techniques on three datasets: GaussianBlob, Moon and UCI Lymphography. The other methods include local outlier factor \cite{Breunig}, isolation forest \cite{if}, elliptic envelope \cite{rousseeuw1999fast} and one class SVM \cite{svm}. We use two metrics to measure the overall performance of the detection: true positive rate (TPR) and true negative rate (TNR). The inlier is treated as positive sample. TPR measures the percentage of right detection in inlier set while TNR measures that in outlier set. It is difficult for a method to achieve high score on both two metrics. We manage to maximize TNR while controlling TPR $\geq 90\%$ for each method. The hyper parameters and metric are tuned for each method and the best result of TNR is shown in Fig.\ref{fig:er}.(c). The results show that Info-Detection is competitive with local outlier factor and outperforms other methods on these datasets.
 
 \section{Conclusion}\label{sec:Conclusion}
 In this paper, we propose Info-Detection, which is a cluster-analysis based method and does not require the number of outliers in advance. We design an efficient algorithm for Info-Detection based on existing PSP algorithms. By experiments we show that Info-Detection outperforms other methods.  

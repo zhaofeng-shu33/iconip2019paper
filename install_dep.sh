@@ -1,3 +1,4 @@
+#!/bin/bash
 export PATH="/tmp/texlive/bin/x86_64-linux:$PATH";
 if ! command -v tlmgr > /dev/null; then
     REMOTE="http://mirror.ctan.org/systems/texlive/tlnet";

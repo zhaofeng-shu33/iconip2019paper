@@ -8,16 +8,12 @@ trigger:
 
 pool:
   vmImage: 'ubuntu-latest'
-  
+container: 
+  image: zhaofengshu33/mini-latex:v1
+  options: -v "$PWD":/data  
 steps:
-- task: CacheBeta@0
-  inputs:
-    key: texlive
-    path: /tmp/texlive
-  displayName: cache texlive
-
-- script: ./build.sh
-  displayName: 'build and install step'
+- script: make
+  displayName: 'build'
 
 - publish: $(System.DefaultWorkingDirectory)/build/iconip_2019.pdf
   artifact: iconip-2019-paper

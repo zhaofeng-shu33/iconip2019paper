@@ -15,8 +15,7 @@ steps:
     key: texlive
     path: /tmp/texlive
   displayName: cache texlive
-  
-steps:
+
 - script: ./build.sh
   displayName: 'build and install step'
 

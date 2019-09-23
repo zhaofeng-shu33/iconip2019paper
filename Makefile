@@ -7,8 +7,12 @@ all: $(BUILD_DIR)/exportlist.bib $(BUILD_DIR)/iconip_2019.pdf
 $(BUILD_DIR)/exportlist.bib: exportlist.bib
 	mkdir -p $(BUILD_DIR)
 	cp exportlist.bib $(BUILD_DIR)/
-    
-$(BUILD_DIR)/iconip_2019.pdf: iconip_2019.tex
+
+$(BUILD_DIR)/splncs04.bst: splncs04.bst
+	mkdir -p $(BUILD_DIR)
+	cp splncs04.bst $(BUILD_DIR)/
+
+$(BUILD_DIR)/iconip_2019.pdf: iconip_2019.tex $(BUILD_DIR)/exportlist.bib $(BUILD_DIR)/splncs04.bst
 	mkdir -p $(BUILD_DIR)
 	xelatex -output-directory=$(BUILD_DIR) iconip_2019.tex
 	cd $(BUILD_DIR) && bibtex iconip_2019.aux && cd ..

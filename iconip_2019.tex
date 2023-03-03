@@ -149,7 +149,7 @@ To be more specific, suppose we get $P_i = \{C_1, \dots, C_t\}$ for the first in
 		\FUNCTION{\texttt{Split}($\widetilde{G}, \widetilde{V}$)}
 		\STATE $w$ is the summation of all edge weights of $\widetilde{G}$ 
 		\STATE $\gamma' = \frac{w}{\abs{V(\widetilde{G})}-1}$ where $V(\widetilde{G})$ is the node set of graph $\widetilde{G}$ \label{alg:gamma_apostrophe}
-		\STATE $(\tilde{h}, P') = \texttt{DT}(\widetilde{G}, \gamma')$ where $\P'$ is minimizer of $h(\gamma')$ in equation \eqref{eq:hlambda} and $\tilde{h}$ is the corresponding minimum value  \label{alg:DT}
+		\STATE $(\tilde{h}, \P') = \texttt{DT}(\widetilde{G}, \gamma')$ where $\P'$ is minimizer of $h(\gamma')$ in equation \eqref{eq:hlambda} and $\tilde{h}$ is the corresponding minimum value  \label{alg:DT}
 		\IF{$\tilde{h} = - \gamma'$}
 		\STATE add edge weight $\gamma'$ in $\mathcal{T}$ starting from $\widetilde{V}$ to its children
 		\ELSE
